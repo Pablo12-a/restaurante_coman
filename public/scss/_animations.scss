@@ -1,0 +1,217 @@
+// Animations
+
+// Fade in
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+// Slide down
+@keyframes slideDown {
+  from { 
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-in-out;
+}
+
+// Slide up
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-in-out;
+}
+
+// Slide in from right
+@keyframes slideInRight {
+  from { 
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-in-out;
+}
+
+// Slide in from left
+@keyframes slideInLeft {
+  from { 
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease-in-out;
+}
+
+// Pulse animation
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+// Notifications
+@keyframes slideInTop {
+  from { 
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: $spacing-md;
+  border-radius: $border-radius;
+  background-color: $white;
+  box-shadow: $shadow-md;
+  z-index: 1100;
+  animation: slideInTop 0.3s ease-in-out;
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .notification-content {
+    display: flex;
+    align-items: center;
+    
+    i {
+      margin-right: $spacing-sm;
+    }
+  }
+  
+  .notification-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+  
+  &.notification-success {
+    background-color: rgba($success-color, 0.1);
+    color: $success-color;
+    border-left: 4px solid $success-color;
+  }
+  
+  &.notification-error {
+    background-color: rgba($error-color, 0.1);
+    color: $error-color;
+    border-left: 4px solid $error-color;
+  }
+  
+  &.notification-warning {
+    background-color: rgba($warning-color, 0.1);
+    color: $warning-color;
+    border-left: 4px solid $warning-color;
+  }
+  
+  &.notification-info {
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+    border-left: 4px solid $primary-color;
+  }
+}
+
+// Spinner rotation
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Status badge animations
+.status-badge {
+  transition: background-color 0.3s ease;
+  
+  &.pending {
+    animation: pulse 2s infinite;
+  }
+  
+  &.preparing {
+    animation: pulse 1.5s infinite;
+  }
+}
+
+// Table card hover effect
+.table-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-md;
+  }
+}
+
+// Menu card image zoom on hover
+.menu-card {
+  .card-img {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover .card-img {
+    transform: scale(1.05);
+  }
+}
+
+// Button press effect
+.btn {
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Modal animations
+.modal-overlay {
+  animation: fadeIn 0.2s ease-in-out;
+  
+  .modal {
+    animation: slideDown 0.3s ease-in-out;
+  }
+}

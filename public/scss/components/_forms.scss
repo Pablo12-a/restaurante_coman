@@ -1,0 +1,192 @@
+// Form Component Styles
+.form-group {
+  margin-bottom: $spacing-md;
+  
+  label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-weight: 500;
+    color: $dark-gray;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $gray;
+    border-radius: $border-radius;
+    font-family: $font-family-body;
+    font-size: 1rem;
+    background-color: $white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+    
+    &:disabled {
+      background-color: $light-gray;
+      cursor: not-allowed;
+    }
+    
+    &.is-invalid {
+      border-color: $error-color;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($error-color, 0.1);
+      }
+    }
+  }
+  
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23424242' d='M6 8.825L1.763 4.588c-.39-.39-1.024-.39-1.414 0-.39.39-.39 1.024 0 1.414l4.95 4.95c.39.39 1.024.39 1.414 0l4.95-4.95c.39-.39.39-1.024 0-1.414-.39-.39-1.024-.39-1.414 0L6 8.825z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $spacing-md center;
+    padding-right: $spacing-xl;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .form-text {
+    display: block;
+    margin-top: $spacing-xs;
+    font-size: 0.875rem;
+    color: $gray;
+  }
+  
+  .form-error {
+    display: block;
+    margin-top: $spacing-xs;
+    font-size: 0.875rem;
+    color: $error-color;
+  }
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin-right: $spacing-xs;
+  }
+  
+  label {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  
+  .form-group {
+    margin-right: $spacing-md;
+    margin-bottom: 0;
+  }
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -$spacing-sm;
+  margin-left: -$spacing-sm;
+  
+  .form-group {
+    flex: 1 0 0%;
+    padding-right: $spacing-sm;
+    padding-left: $spacing-sm;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+// Custom Switch/Toggle
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  margin-right: $spacing-sm;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    &:checked + .slider {
+      background-color: $success-color;
+    }
+    
+    &:checked + .slider:before {
+      transform: translateX(24px);
+    }
+    
+    &:focus + .slider {
+      box-shadow: 0 0 1px $success-color;
+    }
+    
+    &:disabled + .slider {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $gray;
+    transition: .4s;
+    
+    &:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+    }
+    
+    &.round {
+      border-radius: 24px;
+      
+      &:before {
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  
+  .switch + span {
+    font-size: 0.875rem;
+  }
+}

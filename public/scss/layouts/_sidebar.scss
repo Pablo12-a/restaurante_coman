@@ -1,0 +1,156 @@
+// Sidebar Layout Styles
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: $dark-gray;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $shadow-md;
+  transition: width 0.3s ease;
+  
+  .logo {
+    padding: $spacing-md;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid rgba($white, 0.1);
+    
+    img {
+      width: 80px;
+      height: auto;
+      margin-bottom: $spacing-sm;
+    }
+    
+    h1 {
+      font-family: $font-family-brand;
+      font-size: 1.5rem;
+      color: $white;
+      margin-bottom: 0;
+      text-align: center;
+    }
+  }
+  
+  .main-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-md 0;
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    li {
+      margin-bottom: 2px;
+      
+      a {
+        display: flex;
+        align-items: center;
+        padding: $spacing-sm $spacing-md;
+        color: rgba($white, 0.8);
+        transition: all 0.3s ease;
+        
+        i {
+          width: 24px;
+          margin-right: $spacing-sm;
+          text-align: center;
+        }
+        
+        &:hover, &.active {
+          background-color: rgba($white, 0.1);
+          color: $white;
+        }
+      }
+    }
+  }
+  
+  .user-info {
+    padding: $spacing-md;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba($white, 0.1);
+    background-color: rgba($black, 0.2);
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: $primary-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: $spacing-sm;
+      
+      i {
+        font-size: 1.2rem;
+        color: $white;
+      }
+    }
+    
+    .user-details {
+      overflow: hidden;
+      
+      .user-name {
+        font-weight: 600;
+        margin-bottom: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .user-role {
+        font-size: 0.8rem;
+        color: rgba($white, 0.6);
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// Collapsed sidebar styles
+.sidebar.collapsed {
+  width: 60px;
+  
+  .logo {
+    padding: $spacing-sm 0;
+    
+    img {
+      width: 40px;
+    }
+    
+    h1 {
+      display: none;
+    }
+  }
+  
+  .main-nav {
+    li {
+      a {
+        padding: $spacing-sm 0;
+        justify-content: center;
+        
+        i {
+          margin-right: 0;
+        }
+        
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+  
+  .user-info {
+    justify-content: center;
+    
+    .user-avatar {
+      margin-right: 0;
+    }
+    
+    .user-details {
+      display: none;
+    }
+  }
+}

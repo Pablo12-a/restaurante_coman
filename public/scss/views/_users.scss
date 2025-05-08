@@ -1,0 +1,60 @@
+// Users View Styles
+.users-view {
+  .users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+  
+  .users-list {
+    background-color: $white;
+    padding: $spacing-lg;
+    border-radius: $border-radius;
+    box-shadow: $shadow-sm;
+    
+    .users-table {
+      width: 100%;
+      
+      .role-badge {
+        padding: 2px 8px;
+        border-radius: 12px;
+        
+        &.admin {
+          background-color: rgba($primary-color, 0.1);
+          color: $primary-color;
+        }
+        
+        &.waiter {
+          background-color: rgba($secondary-color, 0.1);
+          color: $secondary-color;
+        }
+        
+        &.chef {
+          background-color: rgba($accent-color, 0.1);
+          color: $accent-color;
+        }
+      }
+      
+      .actions {
+        button {
+          padding: 4px 8px;
+        }
+      }
+    }
+  }
+}
+
+.user-form {
+  max-width: 500px;
+  margin: 0 auto;
+  
+  h2 {
+    margin-bottom: $spacing-lg;
+    text-align: center;
+  }
+}

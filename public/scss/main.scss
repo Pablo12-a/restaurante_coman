@@ -1,0 +1,146 @@
+// Variables
+$primary-color: #D32F2F;
+$primary-light: #FF6659;
+$primary-dark: #9A0007;
+$secondary-color: #388E3C;
+$secondary-light: #6ABF69;
+$secondary-dark: #00600F;
+$accent-color: #FFA000;
+$accent-light: #FFC947;
+$accent-dark: #C67100;
+$warning-color: #FF9800;
+$error-color: #F44336;
+$success-color: #4CAF50;
+
+$light-gray: #F5F5F5;
+$gray: #9E9E9E;
+$dark-gray: #424242;
+$black: #212121;
+$white: #FFFFFF;
+
+$border-radius: 8px;
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-md: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+$font-family-brand: 'Playfair Display', serif;
+$font-family-body: 'Poppins', sans-serif;
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Reset & Base Styles
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-family-body;
+  line-height: 1.5;
+  color: $black;
+  background-color: $light-gray;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-brand;
+  font-weight: 700;
+  margin-bottom: $spacing-md;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: $spacing-md;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $primary-dark;
+  }
+}
+
+ul, ol {
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-lg;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Utility Classes
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.text-primary { color: $primary-color; }
+.text-secondary { color: $secondary-color; }
+.text-accent { color: $accent-color; }
+.text-success { color: $success-color; }
+.text-warning { color: $warning-color; }
+.text-error { color: $error-color; }
+
+.bg-primary { background-color: $primary-color; }
+.bg-secondary { background-color: $secondary-color; }
+.bg-accent { background-color: $accent-color; }
+.bg-light { background-color: $light-gray; }
+.bg-white { background-color: $white; }
+
+.d-flex { display: flex; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+.align-items-center { align-items: center; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+
+.hidden { display: none !important; }
+.invisible { visibility: hidden; }
+
+// Components
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/cards';
+@import 'components/spinner';
+@import 'components/modal';
+@import 'components/tables';
+@import 'components/badges';
+@import 'components/alert';
+
+// Layouts
+@import 'layouts/login';
+@import 'layouts/dashboard';
+@import 'layouts/sidebar';
+
+// Views
+@import 'views/tables';
+@import 'views/orders';
+@import 'views/menu';
+@import 'views/kitchen';
+@import 'views/reports';
+@import 'views/users';
+
+// Animations
+@import 'animations';
+
+// Responsive
+@import 'responsive';

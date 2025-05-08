@@ -1,0 +1,135 @@
+// Table Component Styles
+.table {
+  width: 100%;
+  margin-bottom: $spacing-md;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: $spacing-sm $spacing-md;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba($gray, 0.2);
+  }
+  
+  thead th {
+    background-color: rgba($light-gray, 0.5);
+    font-weight: 600;
+    color: $dark-gray;
+  }
+  
+  tbody tr {
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: rgba($light-gray, 0.5);
+    }
+  }
+  
+  .actions {
+    display: flex;
+    gap: $spacing-xs;
+    justify-content: flex-end;
+  }
+}
+
+.table-striped {
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba($light-gray, 0.3);
+    
+    &:hover {
+      background-color: rgba($light-gray, 0.5);
+    }
+  }
+}
+
+.table-bordered {
+  border: 1px solid rgba($gray, 0.2);
+  
+  th, td {
+    border: 1px solid rgba($gray, 0.2);
+  }
+}
+
+.table-hover {
+  tbody tr:hover {
+    background-color: rgba($light-gray, 0.5);
+  }
+}
+
+.table-sm {
+  th, td {
+    padding: 4px 8px;
+  }
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  .table {
+    min-width: 100%;
+  }
+}
+
+// Specific table styles
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: $spacing-sm;
+    text-align: left;
+    border-bottom: 1px solid rgba($gray, 0.2);
+  }
+  
+  thead th {
+    background-color: rgba($light-gray, 0.5);
+    font-weight: 600;
+    color: $dark-gray;
+  }
+  
+  tbody tr {
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: rgba($light-gray, 0.5);
+    }
+  }
+  
+  .actions {
+    display: flex;
+    gap: $spacing-xs;
+    justify-content: flex-end;
+  }
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $spacing-md;
+  
+  th, td {
+    padding: $spacing-sm;
+    text-align: left;
+    border-bottom: 1px solid rgba($gray, 0.2);
+  }
+  
+  thead th {
+    background-color: rgba($light-gray, 0.5);
+    font-weight: 600;
+    color: $dark-gray;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  tbody tr {
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: rgba($light-gray, 0.5);
+    }
+  }
+}

@@ -1,0 +1,96 @@
+// Reports View Styles
+.reports-view {
+  .report-filters {
+    background-color: $white;
+    padding: $spacing-md;
+    border-radius: $border-radius;
+    box-shadow: $shadow-sm;
+    margin-bottom: $spacing-lg;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-md;
+    
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      
+      input[type="date"] {
+        padding: 6px 10px;
+        border: 1px solid $gray;
+        border-radius: $border-radius;
+        font-family: $font-family-body;
+      }
+    }
+  }
+  
+  .report-container {
+    background-color: $white;
+    padding: $spacing-lg;
+    border-radius: $border-radius;
+    box-shadow: $shadow-sm;
+    
+    .report-header {
+      margin-bottom: $spacing-lg;
+      text-align: center;
+      
+      h2 {
+        margin-bottom: $spacing-xs;
+      }
+      
+      p {
+        color: $gray;
+        margin-bottom: 0;
+      }
+    }
+    
+    .report-summary {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: $spacing-lg;
+      flex-wrap: wrap;
+      
+      .summary-card {
+        background-color: rgba($light-gray, 0.5);
+        padding: $spacing-md;
+        border-radius: $border-radius;
+        min-width: 150px;
+        text-align: center;
+        
+        .summary-value {
+          font-size: 1.8rem;
+          font-weight: 700;
+          margin-bottom: $spacing-xs;
+          color: $primary-color;
+        }
+        
+        .summary-label {
+          font-size: 0.9rem;
+          color: $gray;
+        }
+      }
+    }
+    
+    .report-chart {
+      margin-bottom: $spacing-lg;
+      
+      h3 {
+        margin-bottom: $spacing-md;
+        padding-bottom: $spacing-xs;
+        border-bottom: 1px solid rgba($gray, 0.2);
+      }
+      
+      .sales-chart {
+        min-height: 300px;
+      }
+    }
+    
+    .report-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: $spacing-lg;
+    }
+  }
+}

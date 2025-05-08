@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Compaitos - Sistema de Comandas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <!-- App will be rendered here by JavaScript -->
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Cargando Los Compaitos...</p>
+    </div>
+  </div>
+
+  <!-- Login Template -->
+  <template id="login-template">
+    <div class="login-container">
+      <div class="login-form">
+        <div class="logo">
+          <img src="/img/logo.png" alt="Los Compaitos" id="logo-placeholder">
+          <h1>Los Compaitos</h1>
+        </div>
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username">Usuario</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+          </div>
+          <div class="form-error" id="login-error"></div>
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <!-- Dashboard Template -->
+  <template id="dashboard-template">
+    <div class="dashboard">
+      <aside class="sidebar">
+        <div class="logo">
+          <img src="/img/logo.png" alt="Los Compaitos" id="sidebar-logo-placeholder">
+          <h1>Los Compaitos</h1>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="#" data-view="tables"><i class="fas fa-chair"></i> Mesas</a></li>
+            <li><a href="#" data-view="orders"><i class="fas fa-receipt"></i> Órdenes</a></li>
+            <li><a href="#" data-view="menu"><i class="fas fa-utensils"></i> Menú</a></li>
+            <li class="admin-only"><a href="#" data-view="reports"><i class="fas fa-chart-bar"></i> Reportes</a></li>
+            <li class="admin-only"><a href="#" data-view="users"><i class="fas fa-users"></i> Usuarios</a></li>
+            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+          </ul>
+        </nav>
+        <div class="user-info">
+          <div class="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="user-details">
+            <p class="user-name">Nombre del Usuario</p>
+            <p class="user-role">Rol</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="top-bar">
+          <button class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="view-title">Mesas</div>
+          <div class="actions">
+            <div class="date-time" id="date-time"></div>
+          </div>
+        </header>
+
+        <div class="view-container">
+          <!-- Dynamic content will be loaded here -->
+        </div>
+      </main>
+    </div>
+  </template>
+
+  <!-- Tables View Template -->
+  <template id="tables-view-template">
+    <div class="tables-view">
+      <div class="filters">
+        <select id="table-filter">
+          <option value="all">Todas las mesas</option>
+          <option value="available">Disponibles</option>
+          <option value="occupied">Ocupadas</option>
+          <option value="reserved">Reservadas</option>
+          <option value="cleaning">Limpieza</option>
+        </select>
+        <select id="location-filter">
+          <option value="all">Todas las ubicaciones</option>
+          <option value="inside">Interior</option>
+          <option value="outside">Terraza</option>
+          <option value="bar">Barra</option>
+          <option value="private">Privado</option>
+        </select>
+        <button class="btn btn-primary admin-only" id="add-table-btn">
+          <i class="fas fa-plus"></i> Agregar Mesa
+        </button>
+      </div>
+
+      <div class="tables-layout" id="tables-container">
+        <!-- Tables will be rendered here -->
+      </div>
+    </div>
+  </template>
+
+  <!-- Table Detail Template -->
+  <template id="table-detail-template">
+    <div class="table-detail">
+      <div class="table-info">
+        <h2>Mesa <span id="table-number"></span></h2>
+        <div class="table-status">
+          <span class="status-badge" id="table-status"></span>
+        </div>
+        <div class="table-metadata">
+          <p>Asientos: <span id="table-seats"></span></p>
+          <p>Ubicación: <span id="table-location"></span></p>
+        </div>
+        <div class="table-actions">
+          <button class="btn btn-primary" id="new-order-btn">
+            <i class="fas fa-plus"></i> Nueva Orden
+          </button>
+          <button class="btn btn-secondary" id="change-status-btn">
+            <i class="fas fa-sync-alt"></i> Cambiar Estado
+          </button>
+        </div>
+      </div>
+
+      <div class="active-orders" id="active-orders">
+        <h3>Órdenes Activas</h3>
+        <div class="orders-list" id="orders-list">
+          <!-- Active orders will be rendered here -->
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- New Order Template -->
+  <template id="new-order-template">
+    <div class="new-order">
+      <div class="order-header">
+        <h2>Nueva Orden - Mesa <span id="order-table-number"></span></h2>
+      </div>
+      
+      <div class="menu-categories">
+        <button class="category-btn active" data-category="all">Todos</button>
+        <button class="category-btn" data-category="appetizers">Entradas</button>
+        <button class="category-btn" data-category="main">Platos Principales</button>
+        <button class="category-btn" data-category="sides">Guarniciones</button>
+        <button class="category-btn" data-category="desserts">Postres</button>
+        <button class="category-btn" data-category="drinks">Bebidas</button>
+      </div>
+      
+      <div class="menu-items" id="menu-items">
+        <!-- Menu items will be rendered here -->
+      </div>
+      
+      <div class="order-summary">
+        <h3>Resumen de la Orden</h3>
+        <div class="order-items" id="order-items">
+          <!-- Selected items will be rendered here -->
+        </div>
+        
+        <div class="order-total">
+          <p>Total: $<span id="order-total">0.00</span></p>
+        </div>
+        
+        <div class="order-actions">
+          <button class="btn btn-secondary" id="cancel-order-btn">
+            <i class="fas fa-times"></i> Cancelar
+          </button>
+          <button class="btn btn-primary" id="send-order-btn">
+            <i class="fas fa-paper-plane"></i> Enviar Orden
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Orders View Template -->
+  <template id="orders-view-template">
+    <div class="orders-view">
+      <div class="filters">
+        <select id="orders-status-filter">
+          <option value="all">Todas las órdenes</option>
+          <option value="active">Activas</option>
+          <option value="completed">Completadas</option>
+          <option value="cancelled">Canceladas</option>
+        </select>
+        <input type="date" id="orders-date-filter" class="date-filter">
+      </div>
+
+      <div class="orders-list" id="main-orders-list">
+        <!-- Orders will be rendered here -->
+      </div>
+    </div>
+  </template>
+
+  <!-- Order Detail Template -->
+  <template id="order-detail-template">
+    <div class="order-detail">
+      <div class="order-header">
+        <h2>Orden #<span id="order-id"></span></h2>
+        <div class="order-status">
+          <span class="status-badge" id="order-status"></span>
+        </div>
+      </div>
+      
+      <div class="order-info">
+        <p>Mesa: <span id="order-table"></span></p>
+        <p>Mesero: <span id="order-waiter"></span></p>
+        <p>Fecha: <span id="order-date"></span></p>
+        <p>Hora: <span id="order-time"></span></p>
+      </div>
+      
+      <div class="order-items">
+        <h3>Items</h3>
+        <div class="items-list" id="detail-order-items">
+          <!-- Order items will be rendered here -->
+        </div>
+      </div>
+      
+      <div class="order-total">
+        <p>Total: $<span id="detail-order-total"></span></p>
+      </div>
+      
+      <div class="order-actions">
+        <button class="btn btn-danger" id="cancel-order-btn" data-action="cancel">
+          <i class="fas fa-times"></i> Cancelar Orden
+        </button>
+        <button class="btn btn-success" id="complete-order-btn" data-action="complete">
+          <i class="fas fa-check"></i> Completar Orden
+        </button>
+        <button class="btn btn-primary" id="add-items-btn">
+          <i class="fas fa-plus"></i> Agregar Items
+        </button>
+        <button class="btn btn-secondary" id="print-order-btn">
+          <i class="fas fa-print"></i> Imprimir
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <!-- Menu View Template -->
+  <template id="menu-view-template">
+    <div class="menu-view">
+      <div class="filters">
+        <select id="menu-category-filter">
+          <option value="all">Todas las categorías</option>
+          <option value="appetizers">Entradas</option>
+          <option value="main">Platos Principales</option>
+          <option value="sides">Guarniciones</option>
+          <option value="desserts">Postres</option>
+          <option value="drinks">Bebidas</option>
+        </select>
+        <button class="btn btn-primary admin-only" id="add-menu-item-btn">
+          <i class="fas fa-plus"></i> Agregar Item
+        </button>
+      </div>
+
+      <div class="menu-grid" id="menu-grid">
+        <!-- Menu items will be rendered here -->
+      </div>
+    </div>
+  </template>
+
+  <!-- Menu Item Detail Template -->
+  <template id="menu-item-detail-template">
+    <div class="menu-item-detail">
+      <div class="menu-item-image">
+        <img id="menu-item-img" src="/img/default-dish.jpg" alt="Dish">
+      </div>
+      
+      <div class="menu-item-info">
+        <h2 id="menu-item-name"></h2>
+        <p class="menu-item-description" id="menu-item-description"></p>
+        <p class="menu-item-price">$<span id="menu-item-price"></span></p>
+        <p class="menu-item-category">Categoría: <span id="menu-item-category"></span></p>
+        <p class="menu-item-prep-time">Tiempo de preparación: <span id="menu-item-prep-time"></span> min</p>
+        
+        <div class="menu-item-availability">
+          <label class="switch">
+            <input type="checkbox" id="menu-item-available">
+            <span class="slider round"></span>
+          </label>
+          <span>Disponible</span>
+        </div>
+        
+        <div class="menu-item-actions admin-only">
+          <button class="btn btn-primary" id="edit-menu-item-btn">
+            <i class="fas fa-edit"></i> Editar
+          </button>
+          <button class="btn btn-danger" id="delete-menu-item-btn">
+            <i class="fas fa-trash"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Menu Item Form Template -->
+  <template id="menu-item-form-template">
+    <div class="menu-item-form">
+      <h2 id="form-title">Agregar Item al Menú</h2>
+      
+      <form id="menu-item-form">
+        <div class="form-group">
+          <label for="item-name">Nombre</label>
+          <input type="text" id="item-name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="item-description">Descripción</label>
+          <textarea id="item-description" name="description" rows="3"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="item-price">Precio ($)</label>
+          <input type="number" id="item-price" name="price" step="0.01" min="0" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="item-category">Categoría</label>
+          <select id="item-category" name="category" required>
+            <option value="appetizers">Entradas</option>
+            <option value="main">Platos Principales</option>
+            <option value="sides">Guarniciones</option>
+            <option value="desserts">Postres</option>
+            <option value="drinks">Bebidas</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="item-image">Imagen URL</label>
+          <input type="text" id="item-image" name="image" placeholder="Dejar en blanco para imagen por defecto">
+        </div>
+        
+        <div class="form-group">
+          <label for="item-prep-time">Tiempo de preparación (min)</label>
+          <input type="number" id="item-prep-time" name="preparationTime" min="1" value="15">
+        </div>
+        
+        <div class="form-group">
+          <label for="item-available">Disponible</label>
+          <div class="toggle-switch">
+            <label class="switch">
+              <input type="checkbox" id="item-available" name="isAvailable" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancel-form-btn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </template>
+
+  <!-- Kitchen View Template -->
+  <template id="kitchen-view-template">
+    <div class="kitchen-view">
+      <h2>Cocina - Órdenes Activas</h2>
+      
+      <div class="kitchen-orders" id="kitchen-orders">
+        <!-- Kitchen orders will be rendered here -->
+      </div>
+    </div>
+  </template>
+
+  <!-- Reports View Template -->
+  <template id="reports-view-template">
+    <div class="reports-view admin-only">
+      <div class="report-filters">
+        <div class="date-range">
+          <input type="date" id="report-start-date">
+          <span>al</span>
+          <input type="date" id="report-end-date">
+          <button class="btn btn-primary" id="generate-report-btn">Generar</button>
+        </div>
+        
+        <select id="report-type">
+          <option value="sales">Ventas</option>
+          <option value="items">Items Populares</option>
+          <option value="waiters">Desempeño de Meseros</option>
+          <option value="tables">Uso de Mesas</option>
+        </select>
+      </div>
+      
+      <div class="report-container" id="report-container">
+        <!-- Report will be rendered here -->
+      </div>
+    </div>
+  </template>
+
+  <!-- Users View Template -->
+  <template id="users-view-template">
+    <div class="users-view admin-only">
+      <div class="users-header">
+        <h2>Gestión de Usuarios</h2>
+        <button class="btn btn-primary" id="add-user-btn">
+          <i class="fas fa-plus"></i> Agregar Usuario
+        </button>
+      </div>
+      
+      <div class="users-list" id="users-list">
+        <!-- Users will be rendered here -->
+      </div>
+    </div>
+  </template>
+
+  <!-- User Form Template -->
+  <template id="user-form-template">
+    <div class="user-form">
+      <h2 id="user-form-title">Agregar Usuario</h2>
+      
+      <form id="user-form">
+        <div class="form-group">
+          <label for="user-name">Nombre</label>
+          <input type="text" id="user-name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="user-username">Usuario</label>
+          <input type="text" id="user-username" name="username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="user-password">Contraseña</label>
+          <input type="password" id="user-password" name="password" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="user-role">Rol</label>
+          <select id="user-role" name="role">
+            <option value="waiter">Mesero</option>
+            <option value="chef">Cocinero</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancel-user-form-btn">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </template>
+
+  <!-- Modal Template -->
+  <template id="modal-template">
+    <div class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title"></h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal content will be inserted here -->
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- JavaScript Files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/tables.js"></script>
+  <script src="/js/menu.js"></script>
+  <script src="/js/orders.js"></script>
+  <script src="/js/kitchen.js"></script>
+  <script src="/js/reports.js"></script>
+  <script src="/js/users.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
